@@ -1,0 +1,18 @@
+@Metadata.layer: #CORE
+annotate entity ZC_LeaveAttachment with
+{
+  @UI.lineItem: [{ position: 10, label: 'File Name' }]
+  FileName;
+
+  @UI.lineItem: [{ position: 20, label: 'MIME Type' }]
+  MimeType;
+
+  @UI.lineItem: [{ position: 30, label: 'File Size (Bytes)' }]
+  FileSize;
+
+  @UI.lineItem: [{ position: 40, label: 'Uploaded By' }]
+  CreatedBy;
+
+  @UI.lineItem: [{ position: 50, label: 'Uploaded At' }]
+  CreatedAt;
+}

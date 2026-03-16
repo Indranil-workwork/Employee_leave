@@ -1,0 +1,9 @@
+@EndUserText.label: 'Leave Application Service Definition'
+define service ZLEAVE_SRV {
+  expose ZC_LeaveApplication as LeaveApplication;
+  expose ZC_LeaveAttachment  as Attachment;
+  expose ZI_EmployeeVH       as EmployeeVH;
+  expose ZI_SupervisorVH     as SupervisorVH;
+  expose ZI_LeaveTypeVH      as LeaveTypeVH;
+  expose ZI_LeaveStatusVH    as LeaveStatusVH;
+}

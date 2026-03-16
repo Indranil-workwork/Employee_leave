@@ -1,0 +1,170 @@
+@Metadata.layer: #CORE
+  // ── Header Info ──────────────────────────────────────────
+  @UI.headerInfo: {
+    typeName:       'Leave Application',
+    typeNamePlural: 'Leave Applications',
+    title: {
+      type:  #STANDARD,
+      value: 'LeaveId'
+    },
+    description: {
+      type:  #STANDARD,
+      value: 'EmployeeId'
+    }
+  }
+annotate entity ZC_LeaveApplication with
+{
+  // ── Page Facets ───────────────────────────────────────────
+  @UI.facet: [
+    {
+      id:       'GeneralInfo',
+      type:     #COLLECTION,
+      label:    'General Information',
+      position: 10
+    },
+    {
+      id:       'LeaveDetails',
+      type:     #IDENTIFICATION_REFERENCE,
+      parentId: 'GeneralInfo',
+      label:    'Leave Details',
+      position: 10
+    },
+    {
+      id:       'ApprovalInfo',
+      type:     #IDENTIFICATION_REFERENCE,
+      parentId: 'GeneralInfo',
+      label:    'Approval Information',
+      position: 20
+    },
+    {
+      id:            'Attachments',
+      type:          #LINEITEM_REFERENCE,
+      targetElement: '_Attachments',
+      label:         'Attachments',
+      position:      30
+    }
+  ]
+
+  // ── LeaveId — hidden + actions combined in ONE block ─────
+  // Fix: both @UI.hidden and @UI.identification on LeaveId
+  // combined into a single field annotation block
+  @UI.hidden: true
+  @UI.identification: [
+    {
+      type:       #FOR_ACTION,
+      dataAction: 'submitLeave',
+      label:      'Submit',
+      position:   10,
+      emphasized: true
+    },
+    {
+      type:       #FOR_ACTION,
+      dataAction: 'approveLeave',
+      label:      'Approve',
+      position:   20
+    },
+    {
+      type:       #FOR_ACTION,
+      dataAction: 'rejectLeave',
+      label:      'Reject',
+      position:   30
+    },
+    {
+      type:       #FOR_ACTION,
+      dataAction: 'withdrawLeave',
+      label:      'Withdraw',
+      position:   40
+    }
+  ]
+  LeaveId;
+
+  // ── Employee ID ────────────────────────────────────────────
+  @UI: {
+    lineItem:       [{ position: 10, label: 'Employee ID',
+                       importance: #HIGH }],
+    identification: [{ position: 10, label: 'Employee ID' }],
+    selectionField: [{ position: 10 }]
+  }
+  EmployeeId;
+
+  // ── Leave Type ─────────────────────────────────────────────
+  @UI: {
+    lineItem:       [{ position: 20, label: 'Leave Type',
+                       importance: #HIGH }],
+    identification: [{ position: 20, label: 'Leave Type' }],
+    selectionField: [{ position: 20 }]
+  }
+  LeaveType;
+
+  // ── Start Date ─────────────────────────────────────────────
+  @UI: {
+    lineItem:       [{ position: 30, label: 'Start Date',
+                       importance: #HIGH }],
+    identification: [{ position: 30, label: 'Start Date' }]
+  }
+  StartDate;
+
+  // ── End Date ───────────────────────────────────────────────
+  @UI: {
+    lineItem:       [{ position: 40, label: 'End Date',
+                       importance: #MEDIUM }],
+    identification: [{ position: 40, label: 'End Date' }]
+  }
+  EndDate;
+
+  // ── Total Days ─────────────────────────────────────────────
+  @UI: {
+    lineItem:       [{ position: 50, label: 'Total Days',
+                       importance: #MEDIUM }],
+    identification: [{ position: 50, label: 'Total Days' }]
+  }
+  TotalDays;
+
+  // ── Reason ─────────────────────────────────────────────────
+  @UI.identification: [{ position: 60, label: 'Reason' }]
+  Reason;
+
+  // ── Status ─────────────────────────────────────────────────
+  @UI: {
+    lineItem: [{
+      position:    70,
+      label:       'Status',
+      importance:  #HIGH,
+      criticality: 'StatusCriticality'
+    }],
+    identification: [{
+      position:    70,
+      label:       'Status',
+      criticality: 'StatusCriticality'
+    }],
+    selectionField: [{ position: 30 }]
+  }
+  Status;
+
+  // ── StatusCriticality — hidden data source ─────────────────
+  @UI.hidden: true
+  StatusCriticality;
+
+  // ── Approval Fields ────────────────────────────────────────
+  @UI.identification: [{ position: 10, label: 'Approved By' }]
+  ApprovedBy;
+
+  @UI.identification: [{ position: 20, label: 'Approved At' }]
+  ApprovedAt;
+
+  // ── Admin Fields — all hidden ──────────────────────────────
+  @UI.hidden: true
+  CreatedBy;
+
+  @UI.hidden: true
+  CreatedAt;
+
+  @UI.hidden: true
+  LastChangedBy;
+
+  @UI.hidden: true
+  LastChangedAt;
+
+  @UI.hidden: true
+  LocalLastChangedAt;
+}
